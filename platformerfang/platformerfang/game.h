@@ -62,6 +62,7 @@ private:
 
 	const int H = 12;
 	const int W = 40;
+	float offsetX = 0, offsetY = 0;
 	string TileMap[12] = {
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
 "B                                B     B",

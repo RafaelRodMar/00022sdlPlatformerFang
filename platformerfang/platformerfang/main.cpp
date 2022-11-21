@@ -128,6 +128,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width,
 
 	//SDL_RenderSetScale(Game::Instance()->getRenderer(), 2, 2);
 
+	p = new player();
+	p->settings("fang", { 100,100 }, { 0,0 }, 40, 49, 6, 5, 0, 0.0, 1);
+
 	return true;
 }
 
@@ -160,6 +163,8 @@ void Game::render()
 			SDL_RenderFillRect(Game::Instance()->getRenderer(), rct);
 			SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 255, 255, 255, 0);
 		}
+
+	p->draw();
 
 	SDL_RenderPresent(m_pRenderer); // draw to the screen
 }
@@ -228,6 +233,7 @@ void Game::update()
 
 			e->update();
 		}
+		p->update();
 	}
 
 }

@@ -52,8 +52,9 @@ void bullet::draw()
 void player::update()
 {
 	m_position += m_velocity;
+	m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
 
-	m_velocity = Vector2D(0, 0);
+	//m_velocity = Vector2D(0, 0);
 	if (m_position.m_x > Game::Instance()->getGameWidth()) m_position.m_x = Game::Instance()->getGameWidth();
 	if (m_position.m_x < 0) m_position.m_x = 0;
 	if (m_position.m_y > Game::Instance()->getGameHeight()) m_position.m_y = Game::Instance()->getGameHeight();

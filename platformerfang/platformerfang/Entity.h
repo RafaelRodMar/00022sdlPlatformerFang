@@ -110,6 +110,7 @@ public:
 class player : public Entity
 {
 public:
+	bool onGround = 0;
 
 	player()
 	{
