@@ -110,7 +110,10 @@ public:
 class player : public Entity
 {
 public:
-	bool onGround = 0;
+	bool m_onGround = false;
+	bool m_heading = true; //true = right, false = left
+	bool m_isJumping = false;
+	int m_jumpHigh = 0;
 
 	player()
 	{

@@ -198,6 +198,34 @@ void Game::handleEvents()
 
 	if (state == GAME)
 	{
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))
+		{
+			p->m_position.m_x -= 2;
+			p->m_heading = false;
+		}
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT))
+		{
+			p->m_position.m_x += 2;
+			p->m_heading = true;
+		}
+		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
+		{
+			if (p->m_onGround && !p->m_isJumping) { p->m_position.m_y -= 2; p->m_onGround = false; p->m_isJumping = true;  }
+		}
+		if (p->m_isJumping)
+		{
+			p->m_position.m_y -= 12;
+			p->m_jumpHigh++;
+			if (p->m_jumpHigh >= 10)
+			{
+				p->m_jumpHigh = 0;
+				p->m_isJumping = false;
+			}
+		}
+
+		if (!p->m_onGround) p->m_position.m_y += 2;
+		p->m_position.m_y++;
+		p->m_onGround = false;
 	}
 
 	if (state == END_GAME)

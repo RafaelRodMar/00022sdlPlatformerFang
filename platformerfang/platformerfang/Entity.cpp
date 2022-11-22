@@ -55,16 +55,28 @@ void player::update()
 	m_currentFrame = int(((SDL_GetTicks() / (100)) % m_numFrames));
 
 	//m_velocity = Vector2D(0, 0);
-	if (m_position.m_x > Game::Instance()->getGameWidth()) m_position.m_x = Game::Instance()->getGameWidth();
+	if (m_position.m_x + m_width > Game::Instance()->getGameWidth()) m_position.m_x = Game::Instance()->getGameWidth() - m_width;
 	if (m_position.m_x < 0) m_position.m_x = 0;
-	if (m_position.m_y > Game::Instance()->getGameHeight()) m_position.m_y = Game::Instance()->getGameHeight();
+	if (m_position.m_y + m_height > Game::Instance()->getGameHeight())
+	{
+		m_position.m_y = Game::Instance()->getGameHeight() - m_height;
+		m_onGround = true;
+	}
 	if (m_position.m_y < 0) m_position.m_y = 0;
 }
 
 void player::draw()
 {
-	AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height, 
-		m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_NONE);
+	if (m_heading)
+	{
+		AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height,
+			m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_NONE);
+	}
+	else
+	{
+		AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height,
+			m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_HORIZONTAL);
+	}
 
 	if (m_shield)
 	{
