@@ -203,7 +203,7 @@ void Game::handleEvents()
 		{
 			p->m_position.m_x -= 2;
 			p->m_heading = false;
-			if (TileMap[(int)p->m_position.m_y / 32][p->m_position.m_x / 32] == 'B')
+			if (TileMap[(int)p->m_position.m_y / 32][p->m_position.m_x / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B')
 			{
 				p->m_position.m_x += 2;
 			}
@@ -212,7 +212,7 @@ void Game::handleEvents()
 		{
 			p->m_position.m_x += 2;
 			p->m_heading = true;
-			if (TileMap[(int)p->m_position.m_y / 32][(p->m_position.m_x + p->m_width) / 32] == 'B')
+			if (TileMap[(int)p->m_position.m_y / 32][(p->m_position.m_x + p->m_width) / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][(p->m_position.m_x + p->m_width) / 32] == 'B')
 			{
 				p->m_position.m_x -= 2;
 			}
@@ -235,14 +235,14 @@ void Game::handleEvents()
 		if (!p->m_onGround)
 		{
 			p->m_position.m_y += 2;
-			if (TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B')
+			if (TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][(p->m_position.m_x + p->m_width) / 32] == 'B')
 			{
 				p->m_position.m_y -= 2;
 				p->m_onGround = true;
 			}
 		}
 		p->m_position.m_y++;
-		if (TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B')
+		if (TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][(p->m_position.m_x + p->m_width) / 32] == 'B')
 		{
 			p->m_position.m_y -= 1;
 			p->m_onGround = true;
