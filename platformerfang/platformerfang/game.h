@@ -45,6 +45,8 @@ public:
 	void ReadHiScores();
 	void WriteHiScores();
 
+	float offsetX = 0, offsetY = 0;
+
 private:
 	Game();
 	static Game* s_pInstance;
@@ -62,7 +64,7 @@ private:
 
 	const int H = 12;
 	const int W = 40;
-	float offsetX = 0, offsetY = 0;
+	
 	string TileMap[12] = {
 "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
 "B                                B     B",

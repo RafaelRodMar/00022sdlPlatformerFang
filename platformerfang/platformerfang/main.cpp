@@ -150,8 +150,8 @@ void Game::render()
 			SDL_GetRenderDrawColor(Game::Instance()->getRenderer(), r, g, b, a);
 			//SDL_RenderFillRect(SDL_Renderer * renderer,const SDL_Rect * rect);
 			SDL_Rect* rct = new SDL_Rect();
-			rct->x = j * 32;
-			rct->y = i * 32;
+			rct->x = j * 32 - offsetX;
+			rct->y = i * 32 - offsetY;
 			rct->h = rct->w = 32;
 
 			if (TileMap[i][j] == 'B') SDL_SetRenderDrawColor(Game::Instance()->getRenderer(), 0, 0, 0, 0);
@@ -296,6 +296,9 @@ void Game::update()
 			e->update();
 		}
 		p->update();
+
+		if (p->m_position.m_x > 300) offsetX = p->m_position.m_x - 300;
+		offsetY = p->m_position.m_y - 200;
 	}
 
 }

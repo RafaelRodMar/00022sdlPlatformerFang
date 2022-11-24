@@ -56,34 +56,34 @@ void player::update()
 
 
 	//m_velocity = Vector2D(0, 0);
-	if (m_position.m_x + m_width > Game::Instance()->getGameWidth()) m_position.m_x = Game::Instance()->getGameWidth() - m_width;
-	if (m_position.m_x < 0) m_position.m_x = 0;
-	if (m_position.m_y + m_height > Game::Instance()->getGameHeight())
+	//if (m_position.m_x + m_width > Game::Instance()->getGameWidth()) m_position.m_x = Game::Instance()->getGameWidth() - m_width;
+	//if (m_position.m_x < 0) m_position.m_x = 0;
+	/*if (m_position.m_y + m_height > Game::Instance()->getGameHeight())
 	{
 		m_position.m_y = Game::Instance()->getGameHeight() - m_height;
 		m_onGround = true;
 	}
-	if (m_position.m_y < 0) m_position.m_y = 0;
+	if (m_position.m_y < 0) m_position.m_y = 0;*/
 }
 
 void player::draw()
 {
 	if (m_heading)
 	{
-		AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height,
+		AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x - Game::Instance()->offsetX, m_position.m_y - Game::Instance()->offsetY, m_width, m_height,
 			m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_NONE);
 	}
 	else
 	{
-		AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x, m_position.m_y, m_width, m_height,
+		AssetsManager::Instance()->drawFrame(m_textureID, m_position.m_x - Game::Instance()->offsetX, m_position.m_y - Game::Instance()->offsetY, m_width, m_height,
 			m_currentRow, m_currentFrame, Game::Instance()->getRenderer(), m_angle, m_alpha, SDL_FLIP_HORIZONTAL);
 	}
 
-	if (m_shield)
+	/*if (m_shield)
 	{
 		AssetsManager::Instance()->drawFrame("shield", m_position.m_x, m_position.m_y, 40, 40, 0, 0, 
 			Game::Instance()->getRenderer(), 0, m_alpha / 2, SDL_FLIP_NONE);
-	}
+	}*/
 }
 
 void car::update()
