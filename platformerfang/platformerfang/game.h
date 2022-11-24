@@ -80,6 +80,7 @@ private:
 	std::list<Entity*> entities;
 	bool isCollide(Entity *a, Entity *b);
 	bool isCollideRect(Entity *a, Entity *b);
+	void isCollide(player *pl, int dir);
 	//std::vector<GameObject*> m_gameObjects;
 
 	bool m_bRunning;

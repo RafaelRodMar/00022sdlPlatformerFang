@@ -203,19 +203,13 @@ void Game::handleEvents()
 		{
 			p->m_position.m_x -= 2;
 			p->m_heading = false;
-			if (TileMap[(int)p->m_position.m_y / 32][p->m_position.m_x / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B')
-			{
-				p->m_position.m_x += 2;
-			}
+			isCollide(p, 0);
 		}
 		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT))
 		{
 			p->m_position.m_x += 2;
 			p->m_heading = true;
-			if (TileMap[(int)p->m_position.m_y / 32][(p->m_position.m_x + p->m_width) / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][(p->m_position.m_x + p->m_width) / 32] == 'B')
-			{
-				p->m_position.m_x -= 2;
-			}
+			isCollide(p, 0);
 		}
 		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
 		{
@@ -225,7 +219,7 @@ void Game::handleEvents()
 		{
 			p->m_position.m_y -= 12;
 			p->m_jumpHigh++;
-			if (p->m_jumpHigh >= 10)
+			if (p->m_jumpHigh >= 12)
 			{
 				p->m_jumpHigh = 0;
 				p->m_isJumping = false;
@@ -235,25 +229,38 @@ void Game::handleEvents()
 		if (!p->m_onGround)
 		{
 			p->m_position.m_y += 2;
-			if (TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][(p->m_position.m_x + p->m_width) / 32] == 'B')
-			{
-				p->m_position.m_y -= 2;
-				p->m_onGround = true;
-			}
+			isCollide(p,1);
 		}
 		p->m_position.m_y++;
-		if (TileMap[((int)p->m_position.m_y + p->m_height) / 32][p->m_position.m_x / 32] == 'B' || TileMap[((int)p->m_position.m_y + p->m_height) / 32][(p->m_position.m_x + p->m_width) / 32] == 'B')
-		{
-			p->m_position.m_y -= 1;
-			p->m_onGround = true;
-		}
-		//p->m_onGround = false;
+		p->m_onGround = false;
+		isCollide(p, 1);
 	}
 
 	if (state == END_GAME)
 	{
 	}
 
+}
+
+void Game::isCollide(player* pl, int dir)
+{
+	for (int i = pl->m_position.m_y / 32; i < (pl->m_position.m_y + pl->m_height) / 32; i++)
+		for (int j = pl->m_position.m_x / 32; j < (pl->m_position.m_x + pl->m_width) / 32; j++)
+		{
+			if (TileMap[i][j] == 'B')
+			{
+				if (pl->m_heading == true && dir == 0) pl->m_position.m_x = j * 32 - pl->m_width;
+				if (pl->m_heading == false && dir == 0) pl->m_position.m_x = j * 32 + 32;
+				if (!pl->m_isJumping && dir == 1) { pl->m_position.m_y = i * 32 - pl->m_height;  pl->m_onGround = true; }
+				if (pl->m_isJumping && (dir == 1)) { pl->m_position.m_y = i * 32 + 32; }
+			}
+
+			if (TileMap[i][j] == '0')
+			{
+				TileMap[i][j] = ' ';
+			}
+
+		}
 }
 
 bool Game::isCollide(Entity *a, Entity *b)
