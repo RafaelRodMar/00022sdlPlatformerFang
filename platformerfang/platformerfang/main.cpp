@@ -199,24 +199,29 @@ void Game::handleEvents()
 
 	if (state == GAME)
 	{
+		p->m_isMoving = false;
 		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_LEFT))
 		{
+			p->m_isMoving = true;
 			p->m_position.m_x -= 2;
 			p->m_heading = false;
 			isCollide(p, 0);
 		}
 		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT))
 		{
+			p->m_isMoving = true;
 			p->m_position.m_x += 2;
 			p->m_heading = true;
 			isCollide(p, 0);
 		}
 		if (InputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP))
 		{
+			p->m_isMoving = true;
 			if (p->m_onGround && !p->m_isJumping) { p->m_position.m_y -= 2; p->m_onGround = false; p->m_isJumping = true;  }
 		}
 		if (p->m_isJumping)
 		{
+			p->m_isMoving = true;
 			p->m_position.m_y -= 12;
 			p->m_jumpHigh++;
 			if (p->m_jumpHigh >= 12)

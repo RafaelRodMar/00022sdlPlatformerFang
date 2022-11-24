@@ -110,6 +110,7 @@ public:
 class player : public Entity
 {
 public:
+	bool m_isMoving = false;
 	bool m_onGround = false;
 	bool m_heading = true; //true = right, false = left
 	bool m_isJumping = false;
