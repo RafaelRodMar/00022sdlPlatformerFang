@@ -54,12 +54,14 @@ public:
 	void drawTile(std::string id, int margin, int spacing, int x, int y, int width, int height, int currentRow, int currentFrame, SDL_Renderer *pRenderer);
 
 	void clearFromTextureMap(string id); //delete SDL_Texture from the map
+	void clearAllTextures();
 
 	//SOUND / MUSIC
 
 	bool loadSound(std::string fileName, std::string id, sound_type type);
 	void playSound(std::string id, int loop);
 	void playMusic(std::string id, int loop);
+	void clearSoundsMusic();
 
 	//FONTS
 	bool loadFont(const string &fileName, string id, int size);
@@ -71,11 +73,10 @@ public:
 	void Text(const std::string &message, const std::string &font, int x, int y, SDL_Color color, SDL_Renderer *renderer);
 
 	void clearFonts() {
-		auto iter = m_fonts.begin();
-		while (iter != m_fonts.end()) {
-			TTF_CloseFont(iter->second);
-			iter++;
+		for (auto& f : m_fonts) {
+			TTF_CloseFont(f.second);
 		}
+		m_fonts.clear();
 	}
 
 private:

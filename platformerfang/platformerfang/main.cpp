@@ -181,6 +181,7 @@ void Game::clean()
 	std::cout << "cleaning game\n";
 	InputHandler::Instance()->clean();
 	AssetsManager::Instance()->clearFonts();
+	AssetsManager::Instance()->clearAllTextures();
 	TTF_Quit();
 	SDL_DestroyWindow(m_pWindow);
 	SDL_DestroyRenderer(m_pRenderer);

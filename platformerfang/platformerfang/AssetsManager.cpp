@@ -83,6 +83,11 @@ void AssetsManager::clearFromTextureMap(string id)
 	m_textureMap.erase(id);
 }
 
+void AssetsManager::clearAllTextures() {
+	for (auto& t : m_textureMap) {
+		clearFromTextureMap(t.first);
+	}
+}
 
 // SOUND / MUSIC
 bool AssetsManager::loadSound(std::string fileName, std::string id, sound_type type)
@@ -122,6 +127,18 @@ void AssetsManager::playMusic(std::string id, int loop)
 void AssetsManager::playSound(std::string id, int loop)
 {
 	Mix_PlayChannel(-1, m_sfxs[id], loop);
+}
+
+void AssetsManager::clearSoundsMusic() {
+	for (auto& s : m_sfxs) {
+		Mix_FreeChunk(s.second);
+		m_sfxs.erase(s.first);
+	}
+
+	for (auto& m : m_music) {
+		Mix_FreeMusic(m.second);
+		m_music.erase(m.first);
+	}
 }
 
 //FONTS
